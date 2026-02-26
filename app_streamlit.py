@@ -19,6 +19,15 @@ _CWD = os.getcwd()
 if _CWD not in sys.path:
     sys.path.insert(0, _CWD)
 
+# Verificar que 'manager' es importable; si no, intentar instalarlo en runtime
+try:
+    import manager  # noqa: F401
+except ModuleNotFoundError:
+    import subprocess
+    subprocess.run([sys.executable, "-m", "pip", "install", "-e", _ROOT, "--quiet"], check=True)
+    import importlib
+    importlib.invalidate_caches()
+
 import streamlit as st
 
 # Carga .env solo si existe (entorno local); en Streamlit Cloud no es necesario
