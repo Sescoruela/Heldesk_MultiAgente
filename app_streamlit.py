@@ -9,11 +9,16 @@ import sys
 import uuid
 
 import streamlit as st
-from dotenv import load_dotenv
 
 # ── Path setup ────────────────────────────────────────────────────────────────
 sys.path.insert(0, os.path.dirname(__file__))
-load_dotenv()
+
+# Carga .env solo si existe (entorno local); en Streamlit Cloud no es necesario
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    pass
 
 # ── ADK imports ───────────────────────────────────────────────────────────────
 from google.adk.runners import Runner
