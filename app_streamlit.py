@@ -11,7 +11,11 @@ import uuid
 import streamlit as st
 
 # ── Path setup ────────────────────────────────────────────────────────────────
-sys.path.insert(0, os.path.dirname(__file__))
+# Garantiza que el directorio raíz del repo esté en sys.path tanto en local
+# como en Streamlit Cloud (donde __file__ puede ser una ruta relativa)
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+if ROOT_DIR not in sys.path:
+    sys.path.insert(0, ROOT_DIR)
 
 # Carga .env solo si existe (entorno local); en Streamlit Cloud no es necesario
 try:
