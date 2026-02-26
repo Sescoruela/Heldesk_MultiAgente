@@ -8,14 +8,18 @@ import os
 import sys
 import uuid
 
-import streamlit as st
+# ── Path setup — DEBE ir antes de cualquier import local ─────────────────────
+# En Streamlit Cloud __file__ = /mount/src/<repo>/app_streamlit.py
+# sys.path NO incluye ese directorio por defecto, hay que añadirlo
+_ROOT = os.path.dirname(os.path.abspath(__file__))
+if _ROOT not in sys.path:
+    sys.path.insert(0, _ROOT)
+# También añadimos el CWD por si acaso
+_CWD = os.getcwd()
+if _CWD not in sys.path:
+    sys.path.insert(0, _CWD)
 
-# ── Path setup ────────────────────────────────────────────────────────────────
-# Añade el raíz al path como fallback para entornos donde el paquete
-# no esté instalado (ej: ejecución local sin `pip install -e .`)
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-if ROOT_DIR not in sys.path:
-    sys.path.insert(0, ROOT_DIR)
+import streamlit as st
 
 # Carga .env solo si existe (entorno local); en Streamlit Cloud no es necesario
 try:
