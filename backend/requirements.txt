@@ -1,0 +1,7 @@
+google-adk==1.25.1
+python-dotenv
+setuptools
+fastapi
+uvicorn
+pydantic
+python-multipart
