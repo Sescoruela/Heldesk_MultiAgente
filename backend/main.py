@@ -20,9 +20,11 @@ load_dotenv()
 app = FastAPI(title="Helpdesk Multi-Agente API")
 
 # Configure CORS for React frontend
-frontend_url = os.environ.get("FRONTEND_URL", "https://helpdesk-multi-agente.onrender.com")
+frontend_url = os.environ.get("FRONTEND_URL", "https://heldesk-multiagente-1.onrender.com")
 origins = [
     "http://localhost:5173",
+    "https://heldesk-multiagente.onrender.com",
+    "https://heldesk-multiagente-1.onrender.com",
     frontend_url
 ]
 
