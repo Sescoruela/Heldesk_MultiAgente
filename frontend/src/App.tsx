@@ -6,6 +6,9 @@ interface Message {
     content: string;
 }
 
+import { apiRequest } from './api/client';
+import { ENDPOINTS } from './api/endpoints';
+
 const App: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
@@ -40,9 +43,8 @@ const App: React.FC = () => {
         setLoading(true);
 
         try {
-            const response = await fetch('/api/chat', {
+            const data = await apiRequest(ENDPOINTS.CHAT, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     message: input,
                     session_id: sessionId,
@@ -50,11 +52,6 @@ const App: React.FC = () => {
                 }),
             });
 
-            if (!response.ok) {
-                throw new Error('Error al conectar con el servidor');
-            }
-
-            const data = await response.json();
             const assistantMessage: Message = { role: 'assistant', content: data.response };
             setMessages(prev => [...prev, assistantMessage]);
         } catch (error) {

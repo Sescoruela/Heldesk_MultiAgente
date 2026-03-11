@@ -13,11 +13,6 @@ from google.genai import types as genai_types
 from dotenv import load_dotenv
 
 # Local imports
-import sys
-project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if project_root not in sys.path:
-    sys.path.insert(0, project_root)
-
 from manager.agent import root_agent
 
 load_dotenv()
@@ -25,9 +20,15 @@ load_dotenv()
 app = FastAPI(title="Helpdesk Multi-Agente API")
 
 # Configure CORS for React frontend
+frontend_url = os.environ.get("FRONTEND_URL", "https://helpdesk-multi-agente.onrender.com")
+origins = [
+    "http://localhost:5173",
+    frontend_url
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Adjust in production
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
