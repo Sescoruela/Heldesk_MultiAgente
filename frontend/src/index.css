@@ -52,8 +52,15 @@ body {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Sidebar */
@@ -64,6 +71,17 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
 }
 
 .sidebar h2 {
@@ -119,15 +137,30 @@ body {
   flex-direction: column;
   gap: 1.5rem;
   scroll-behavior: smooth;
+  /* Ensure it doesn't shrink below a reasonable size */
+  min-height: 0;
 }
 
+/* Custom Scrollbar */
 .messages::-webkit-scrollbar {
-  width: 6px;
+  width: 10px;
+}
+
+.messages::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
 }
 
 .messages::-webkit-scrollbar-thumb {
-  background: var(--glass-border);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 10px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+.messages::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+  background-clip: content-box;
 }
 
 .message {
@@ -140,8 +173,15 @@ body {
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateX(10px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 
 .message.user {
@@ -245,10 +285,23 @@ button.send-btn:disabled {
   animation: bounce 1.4s infinite ease-in-out both;
 }
 
-.dot:nth-child(1) { animation-delay: -0.32s; }
-.dot:nth-child(2) { animation-delay: -0.16s; }
+.dot:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: -0.16s;
+}
 
 @keyframes bounce {
-  0%, 80%, 100% { transform: scale(0); }
-  40% { transform: scale(1); }
+
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+
+  40% {
+    transform: scale(1);
+  }
 }
