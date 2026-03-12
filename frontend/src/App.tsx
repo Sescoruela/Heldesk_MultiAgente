@@ -9,6 +9,8 @@ interface Message {
 import { apiRequest } from './api/client';
 import { ENDPOINTS } from './api/endpoints';
 
+import ReactMarkdown from 'react-markdown';
+
 const App: React.FC = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [input, setInput] = useState('');
@@ -70,23 +72,25 @@ const App: React.FC = () => {
         <div className="app-container">
             {/* Sidebar */}
             <aside className="sidebar">
-                <h2>🛠️ Helpdesk</h2>
-                <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-                    Sistema multi-agente potenciado por Google ADK y Gemini 2.0.
-                </p>
+                <div className="sidebar-scrollable">
+                    <h2>🛠️ Helpdesk</h2>
+                    <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+                        Sistema multi-agente potenciado por Google ADK y Gemini 2.0.
+                    </p>
 
-                <div className="agent-list">
-                    <div className="agent-card">
-                        <h3>🔍 DiagnosticAgent</h3>
-                        <p>Análisis de causa raíz</p>
-                    </div>
-                    <div className="agent-card">
-                        <h3>🚦 TriageAgent</h3>
-                        <p>Priorización y asignación</p>
-                    </div>
-                    <div className="agent-card">
-                        <h3>📋 DocumentationAgent</h3>
-                        <p>Tickets y postmortems</p>
+                    <div className="agent-list">
+                        <div className="agent-card">
+                            <h3>🔍 DiagnosticAgent</h3>
+                            <p>Análisis de causa raíz</p>
+                        </div>
+                        <div className="agent-card">
+                            <h3>🚦 TriageAgent</h3>
+                            <p>Priorización y asignación</p>
+                        </div>
+                        <div className="agent-card">
+                            <h3>📋 DocumentationAgent</h3>
+                            <p>Tickets y postmortems</p>
+                        </div>
                     </div>
                 </div>
 
@@ -113,7 +117,7 @@ const App: React.FC = () => {
 
                     {messages.map((msg, i) => (
                         <div key={i} className={`message ${msg.role}`}>
-                            {msg.content}
+                            <ReactMarkdown>{msg.content}</ReactMarkdown>
                         </div>
                     ))}
 
